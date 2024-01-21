@@ -147,6 +147,7 @@ namespace pimoroni {
     if(graphics->pen_type != PicoGraphics::PEN_INKY7) return; // Incompatible buffer
 std::cout << "u1";
     if(blocking) {
+std::cout << "u1 blocking";
       busy_wait();
     }
 std::cout << "u2";
