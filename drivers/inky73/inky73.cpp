@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <math.h>
 #include <string.h>
+#include <iostream>
 
 namespace pimoroni {
 
@@ -144,19 +145,19 @@ namespace pimoroni {
 
   void Inky73::update(PicoGraphics *graphics) {
     if(graphics->pen_type != PicoGraphics::PEN_INKY7) return; // Incompatible buffer
-
+std::cout << "u1";
     if(blocking) {
       busy_wait();
     }
-
+std::cout << "u2";
     setup();
-
+std::cout << "u3";
     gpio_put(CS, 0);
 
     uint8_t reg = DTM1;
     gpio_put(DC, 0); // command mode
     spi_write_blocking(spi, &reg, 1);
-
+std::cout << "u4";
     gpio_put(DC, 1); // data mode
 
     uint totalLength = 0;
@@ -169,24 +170,25 @@ namespace pimoroni {
         gpio_put(CS, 1);
       }
     });
-
+std::cout << "u5";
     gpio_put(DC, 0); // data mode
 
     gpio_put(CS, 1);
 
     busy_wait();
-
+std::cout << "u6";
     command(PON, {0}); // turn on
     busy_wait();
-
+std::cout << "u7";
     command(DRF, {0}); // start display refresh
     busy_wait();
-
+std::cout << "u8";
     if(blocking) {
       busy_wait();
 
       command(POF); // turn off
     }
+std::cout << "u9";
   }
 
   bool Inky73::is_pressed(Button button) {
